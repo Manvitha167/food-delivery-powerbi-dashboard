@@ -1,0 +1,111 @@
+# Business Insights — Food Delivery Analytics
+
+## 1. Executive Summary
+This analysis combines the five platform sheets in `Food_Delivery_T4.xlsx`. It covers 15,000 unique orders and reports order value, not verified platform profit. All results are descriptive of the synthetic dataset only.
+
+| KPI | Result |
+|---|---:|
+| Total orders | 15,000 |
+| Total order value | ₹64,51,034.00 |
+| Average order value | ₹430.07 |
+| Gross sales (`Gross_Sales`) | ₹66,66,890.00 |
+| Discounts (`Discount_Amount`) | ₹6,64,551.00 |
+| Quantity sold | 37,768 |
+| Average quantity per order | 2.52 |
+| Unique restaurants | 20 |
+| Unique products | 15 |
+| Locations | 4 |
+| Platforms | 5 |
+
+## 2. Platform Performance
+| Platform | Orders | Order value | Share of order value | Average order value |
+| Zomato | 3,400 | ₹14,52,260.00 | 22.51% | ₹427.14 |
+| Swiggy | 3,200 | ₹13,84,179.50 | 21.46% | ₹432.56 |
+| Magicpin | 3,100 | ₹13,23,728.50 | 20.52% | ₹427.01 |
+| EatSure | 3,000 | ₹13,02,120.00 | 20.18% | ₹434.04 |
+| Toing | 2,300 | ₹9,88,746.00 | 15.33% | ₹429.89 |
+
+**Insight:** Zomato leads the dataset in both order count and total order value. EatSure has the highest average order value (₹434.04), while Magicpin has the lowest (₹427.01); the difference is modest. Toing has the lowest order count and total value, but this alone does not indicate weak profitability or customer satisfaction.
+
+**Action:** Compare platforms using order count, total order value, average order value, discount intensity, and repeat-customer measures together. Avoid ranking platform quality from order value alone.
+
+## 3. Location Performance
+| City | Orders | Order value | Order share | Average order value |
+|---|---:|---:|---:|---:|
+| Hyderabad | 5,759 | ₹24,59,329.50 | 38.39% | ₹427.04 |
+| Chennai | 3,559 | ₹15,47,005.00 | 23.73% | ₹434.67 |
+| Mumbai | 3,556 | ₹15,25,049.00 | 23.71% | ₹428.87 |
+| Bengaluru | 2,126 | ₹9,19,650.50 | 14.17% | ₹432.57 |
+
+**Insight:** Hyderabad has the highest order volume and value, contributing about 38.4% of orders. Chennai and Mumbai have nearly identical order counts. Chennai has the highest average order value (₹434.67).
+
+**Action:** Investigate whether Hyderabad's larger volume is driven by more available orders, restaurant coverage, or the synthetic sampling design. In a real deployment, compare order density, delivery capacity, cancellation rates, and contribution margin before reallocating resources.
+
+## 4. Category Performance
+| Category | Orders | Quantity sold | Order value | Share of order value |
+|---|---:|---:|---:|---:|
+| Fast Food | 5,034 | 12,677 | ₹22,99,650.50 | 35.65% |
+| Rice & Noodles | 4,049 | 10,197 | ₹16,80,192.00 | 26.05% |
+| Main Course | 1,937 | 4,865 | ₹10,41,619.50 | 16.15% |
+| Biryani | 1,975 | 5,033 | ₹9,65,590.00 | 14.97% |
+| South Indian | 2,005 | 4,996 | ₹4,63,982.00 | 7.19% |
+
+**Insight:** Fast Food is the largest category by both order count and order value, accounting for about 35.7% of total order value. Rice & Noodles is second at about 26.1%. Together they account for about 61.7% of order value.
+
+**Action:** Use these categories as starting points for menu availability and bundle analysis. Test targeted offers and monitor whether extra order value offsets the discount cost.
+
+## 5. Product Highlights
+Top products by total order value:
+1. Chicken Pizza — ₹6,72,267
+2. Butter Chicken — ₹5,49,509
+3. Margherita Pizza — ₹5,43,431
+4. Chicken Biryani — ₹5,19,556
+5. Paneer Butter Masala — ₹4,92,110.50
+
+**Insight:** Chicken Pizza has the highest order value among individual products in this dataset. This is a sales-value ranking, not a profit ranking.
+
+**Action:** Consider a product-level view combining quantity, order value, discounts, and (when available) ingredient and packaging costs.
+
+## 6. Payment Preferences
+| Payment mode | Orders | Order value |
+|---|---:|---:|
+| UPI | 3,086 | ₹13,45,545.00 |
+| Wallet | 3,014 | ₹12,98,221.00 |
+| Credit Card | 3,001 | ₹12,94,244.50 |
+| Debit Card | 2,950 | ₹12,47,685.00 |
+| Cash | 2,949 | ₹12,65,338.50 |
+
+**Insight:** UPI is the most frequently used payment mode, although the difference between payment modes is not large.
+
+**Action:** Keep payment options broad. If evaluating payment incentives, measure incremental order frequency and net contribution rather than transaction count alone.
+
+## 7. Discounts and Sales Interpretation
+- Recorded discounts total **₹6,64,551**, which is approximately **9.97% of gross sales**.
+- Total `Order_Value` is **₹64,51,034**, while total `Gross_Sales` is **₹66,66,890**.
+- In the sample rows and aggregate data, `Order_Value` follows the pattern `Gross_Sales - Discount_Amount + Delivery_Fee`.
+- `Net_Food_Sales` matches `Order_Value` numerically in the provided workbook. As a result, the field name may be misleading if it is intended to represent food sales after discount but before delivery fees.
+
+**Recommendation:** Confirm the business definition of each monetary field before presenting “revenue” or “net sales” in a formal report. Use separate measures for food sales after discounts and delivery fees if the data definition supports it.
+
+## 8. Profitability: What Can and Cannot Be Concluded
+The workbook does **not** include food preparation cost, restaurant commission, platform commission, delivery partner payout, packaging cost, refunds, taxes, or operating expenses. Therefore:
+- Revenue/order value can be summarized.
+- Discount amounts can be summarized.
+- **Restaurant profit, platform profit, profit margin, and net contribution cannot be calculated accurately** from the supplied columns.
+- Do not label `Order_Value` as profit.
+
+For a future profit analysis, add verified cost and commission fields, and specify which party receives each amount.
+
+## 9. Recommended Power BI Visuals
+1. KPI cards: Total Orders, Total Order Value, Average Order Value, Total Discounts.
+2. Clustered bar chart: Order Value by Platform.
+3. Column chart: Orders by City.
+4. Bar chart: Order Value by Category.
+5. Top 10 products by Order Value.
+6. Donut or bar chart: Orders by Payment Mode.
+7. Line chart: Monthly Orders and Order Value.
+8. Matrix: Platform × City with Orders, Order Value, AOV, and Discounts.
+9. Slicers: Order Date, Platform, Location, Category.
+
+## 10. Overall Conclusion
+Within this synthetic dataset, Zomato is the largest platform by order volume and order value; Hyderabad is the leading city by order count; and Fast Food is the leading category by order value. These findings are useful for demonstrating Power BI analysis, but they should not be generalized to real delivery markets or treated as evidence of profit.
